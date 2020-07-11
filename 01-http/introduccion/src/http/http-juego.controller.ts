@@ -1,4 +1,19 @@
-import {BadRequestException, Body, Controller, Delete, Get, Header, HttpCode, Param, Post, Query} from "@nestjs/common";
+import {
+    BadRequestException,
+    Body,
+    Controller,
+    Delete,
+    Get,
+    Header,
+    HttpCode,
+    Param,
+    Post,
+    Query,
+    Req, Res
+} from "@nestjs/common";
+import {MascotaCreateDto} from "./dto/mascota.create-dto";
+import {validate, ValidationError} from "class-validator";
+
 
 //Escucha las peticiones pero de que /juegos-http Prefijo a cada controlador
 //http://localhost:3001/juegos-http
@@ -61,12 +76,57 @@ export class HttpJuegoController{
     }
 
     @Post('parametros-cuerpo')
-    parametrosCuerpo(
-       @Body() parametrosDeCuerpo)
-    {
-        console.log('Parametros de cuerpo', parametrosDeCuerpo)
-        const res=parametrosDeCuerpo.mascota.edad + parametrosDeCuerpo.mascota.peso
-        return 'Registro creado'
+    @HttpCode(200)
+    async parametrosCuerpo(
+       @Body() parametrosDeCuerpo
+    ){
+        //promesa
+        const mascotaValida=new MascotaCreateDto();
+        mascotaValida.nombre=parametrosDeCuerpo.nombre;
+        mascotaValida.casada=parametrosDeCuerpo.casada;
+        mascotaValida.edad=parametrosDeCuerpo.edad;
+        mascotaValida.ligada=parametrosDeCuerpo.ligada;
+        mascotaValida.peso=parametrosDeCuerpo.peso;
+        try{
+            const errores:ValidationError[]=await validate(mascotaValida)
+            if(errores.length>0){
+                console.error('Errores',errores)
+                throw new BadRequestException("Error validando")
 
+            }else{
+                return{
+                    mensaje:'Se ha creado correctamente'
+                }
+            }
+        }catch(e){
+            console.error('Error',e);
+            throw new BadRequestException("Error validando");
+
+        }
+
+       /* console.log('Parametros de cuerpo', parametrosDeCuerpo)
+        const res=parametrosDeCuerpo.mascota.edad + parametrosDeCuerpo.mascota.peso
+        return 'Registro creado'*/
+
+    }
+
+
+    //1Guardar una cookie insegura
+    //2 guardar una cookie segura
+    //3 mostrar cookie
+
+    @Get("guardarCookieInsegura")
+    guardarCookieInsegura(
+        @Query() parametrosConsulta,
+        @Req() req, //request-peticion
+        @Res() res //Responde-respuesta
+    ){
+        res.cookie(
+            'galletaInsegura', //nombre
+            'Tengo hambre' //valor
+        )
+        res.send({
+            mensaje: 'ok'
+        });
     }
 }

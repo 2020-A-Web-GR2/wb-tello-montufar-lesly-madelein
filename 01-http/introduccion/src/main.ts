@@ -1,5 +1,7 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './app.module'; //En TS
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const cookieParser= require('cookie-parser'); //Importar cosas en JS
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -7,6 +9,10 @@ async function bootstrap() {
   * AQUI CONFIGURACION
   * *
    */
+  app.use(cookieParser())
+
   await app.listen(3001);
 }
 bootstrap();
+
+
