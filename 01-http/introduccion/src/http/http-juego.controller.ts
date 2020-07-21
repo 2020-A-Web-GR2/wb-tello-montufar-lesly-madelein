@@ -5,6 +5,7 @@ import {
     Delete,
     Get,
     Header,
+    Headers,
     HttpCode,
     Param,
     Post,
@@ -129,4 +130,60 @@ export class HttpJuegoController{
             mensaje: 'ok'
         });
     }
+
+
+    @Get("guardarCookieSegura")
+    guardarCookieSegura(
+
+        @Req() req, //request-peticion
+        @Res() res //Responde-respuesta
+    ){
+        res.cookie(
+            'galletaSegura', //nombre
+            'Web:3',
+        {
+            secure:true
+        }
+
+        )
+        res.send({
+            mensaje: 'ok'
+        });
+    }
+
+
+    @Get("mostrarCookies")
+    mostrarCookies(
+
+        @Req() req, //request-peticion
+    ){
+        const mensaje={
+            sinFirmar:req.cookies,
+            firmadas:req.signedCookies
+        }
+      return mensaje
+
+    }
+
+
+    @Get("guardarCookieFirmada")
+    guardarCookieFirmada(
+
+        @Res() res,
+        @Headers() headers //cabeceras de peticion
+    ){
+        console.log('Headers',headers) //cabeceras de respuesta
+        res.header('Cabecera','Dinamica')
+       res.cookie('firmada','poliburguer',{signed:true})
+        const mensaje={
+           mensaje:'ok'
+        }
+
+        res.send(mensaje)
+
+    }
+
+
+
+
 }
