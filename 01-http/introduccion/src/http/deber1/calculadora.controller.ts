@@ -18,12 +18,16 @@ import {Validate, validate, ValidationError} from "class-validator";
 @Controller('calculadora')
 
 export class CalculadoraController{
+    puntaje=100;
+    bandera=false;
+
     @Get('suma/:n2')
     @HttpCode(200)
     async sumar(
         @Query() parametroConsultan1,
         @Param() parametroRutan2,
-        @Req() req
+        @Req() req,
+        @Res() res
     ){
 
         if(this.verificarUsuario(req)){
@@ -38,7 +42,20 @@ export class CalculadoraController{
                     throw new BadRequestException("Los datos ingresados no son correctos")
 
                 }else{
-                    return datosCliente.valor1+datosCliente.valor2
+                    const respuesta=datosCliente.valor1+datosCliente.valor2
+                    this.verificarPuntaje(respuesta)
+                    if(this.bandera==true){
+                        res.send({
+                            mensaje:"Respuesta:"+respuesta+ " "+req.cookies.usuario+' has excedido el limite. se ha reiniciado en 100'
+                        });
+                    }else{
+                        res.send({
+                            mensaje: 'Respuesta:'+respuesta+' los puntos sobrantes son: '+this.puntaje
+                        });
+                    }
+
+
+
 
                 }
             }catch(e){
@@ -46,7 +63,9 @@ export class CalculadoraController{
                 throw new BadRequestException("Error al usar class validator");
             }
         }else{
-            return 'Debe registrar primeramente a un usuario'
+            res.send({
+                mensaje: 'Debe registrar primeramente un usuario'
+            });
         }
 
 
@@ -57,7 +76,8 @@ export class CalculadoraController{
     @HttpCode(201)
     async restar(
         @Body() parametroCuerpo,
-        @Req() req
+        @Req() req,
+        @Res() res
     ){
 
         if(this.verificarUsuario(req)){
@@ -71,14 +91,28 @@ export class CalculadoraController{
                     throw new BadRequestException("Los datos ingresados no son correctos")
                 }else{
 
-                    return datosCliente.valor1-datosCliente.valor2
+                    const respuesta=datosCliente.valor1-datosCliente.valor2
+                    this.verificarPuntaje(respuesta)
+                    if(this.bandera==true){
+                        res.send({
+                            mensaje:"Respuesta:"+respuesta+ " "+req.cookies.usuario+' has excedido el limite. se ha reiniciado el puntaje en 100'
+                        });
+                    }else{
+                        res.send({
+                            mensaje: 'Respuesta:'+respuesta+' los puntos sobrantes son: '+this.puntaje
+                        });
+                    }
+
+
 
                 }
             }catch (e){
                 throw new BadRequestException("Error con class-validator")
             }
         }else{
-            return 'Debe registrar primeramente a un usuario'
+            res.send({
+                mensaje: 'Debe registrar primeramente un usuario'
+            });
         }
 
 
@@ -89,7 +123,8 @@ export class CalculadoraController{
     @HttpCode(200)
     async multiplicar(
         @Headers() datos,
-        @Req() req
+        @Req() req,
+        @Res() res
     ){
 
 
@@ -104,7 +139,18 @@ export class CalculadoraController{
                     throw new BadRequestException("Los datos ingresados no son correctos")
                 }else{
 
-                    return datosCliente.valor1*datosCliente.valor2
+                    const respuesta=datosCliente.valor1*datosCliente.valor2
+                    this.verificarPuntaje(respuesta)
+                    if(this.bandera==true){
+                        res.send({
+                            mensaje:"Respuesta:"+respuesta+ " "+req.cookies.usuario+' has excedido el limite. se ha reiniciado el puntaje en 100'
+                        });
+                    }else{
+                        res.send({
+                            mensaje: 'Respuesta:'+respuesta+' los puntos sobrantes son: '+this.puntaje
+                        });
+                    }
+
 
                 }
             }catch (e){
@@ -112,7 +158,9 @@ export class CalculadoraController{
             }
 
         }else{
-            return 'Debe registrar primeramente a un usuario'
+            res.send({
+                mensaje: 'Debe registrar primeramente un usuario'
+            });
         }
 
 
@@ -123,7 +171,8 @@ export class CalculadoraController{
     @HttpCode(201)
     async dividir(
         @Param() parametrosRuta,
-         @Req() req
+         @Req() req,
+        @Res() res
 
     ){
         const bandera=this.verificarUsuario(req)
@@ -144,7 +193,20 @@ export class CalculadoraController{
                         console.log('No se puede dividir para cero')
                         throw new BadRequestException("Los datos ingresados no son correctos")
                     }else{
-                        return datosCliente.valor1/datosCliente.valor2
+
+                        const respuesta=datosCliente.valor1/datosCliente.valor2
+                        this.verificarPuntaje(respuesta)
+                        if(this.bandera==true){
+                            res.send({
+                                mensaje:"Respuesta:"+respuesta+ " "+req.cookies.usuario+' has excedido el limite. se ha reiniciado el puntaje en 100'
+                            });
+                        }else{
+                            res.send({
+                                mensaje: 'Respuesta:'+respuesta+' los puntos sobrantes son: '+this.puntaje
+                            });
+                        }
+
+
                     }
 
                 }
@@ -152,7 +214,9 @@ export class CalculadoraController{
                 throw new BadRequestException("Error con la peticion solicitada")
             }
         }else{
-            return 'Debe registrar primeramente a un usuario'
+            res.send({
+                mensaje: 'Debe registrar primeramente un usuario'
+            });
         }
 
 
@@ -172,6 +236,7 @@ export class CalculadoraController{
         const nombre = parametroDeConsulta.nombre
         if(nombre){
             res.cookie('usuario', nombre)
+            res.cookie('puntaje',this.puntaje,{signed:true})
             res.send("Usuario guardado")
         }else{
             throw new BadRequestException('Error en los datos de entrada')
@@ -194,6 +259,24 @@ export class CalculadoraController{
         }
 
 
+    }
+
+
+
+
+
+    public verificarPuntaje(respuesta){
+
+        const temporal=this.puntaje-Math.abs(respuesta)
+        if(temporal<=0){
+            this.puntaje=100;
+            this.bandera=true;
+
+
+        }else{
+            this.puntaje=temporal
+            this.bandera=false
+        }
     }
 
     }
