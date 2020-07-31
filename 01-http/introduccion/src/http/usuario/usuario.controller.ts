@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Param, Post} from "@nestjs/common";
+import {Body, Controller, Delete, Get, Param, Post, Put} from "@nestjs/common";
 
 @Controller('usuario')
 
@@ -17,12 +17,13 @@ export class UsuarioController{
 
     public idActual=3
 
-
+    //MOSTRAR TODOS
     @Get()
     mostrarTodos(){
         return this.arregloUsuarios
     }
 
+    //CREAR UNO
     @Post()
     crearUno(
         @Body() params //parametros de cuerpo
@@ -44,6 +45,7 @@ export class UsuarioController{
     }
 
 
+    //OBTENER UNO
     @Get(':id')
     verUno(
         @Param() parametroRuta
@@ -57,6 +59,46 @@ export class UsuarioController{
         return this.arregloUsuarios[indice]
 
     }
+
+
+    @Put(':id')
+    editar(
+        @Param() parametroRuta,
+        @Body() parametroCuerpo
+    ){
+
+        const indice=this.arregloUsuarios.findIndex(
+            //(usuario)=> usuario.id===Number(parametrosRuta.id)
+            (usuario:{id:number, nombre:string })=> usuario.id=== Number(parametroRuta.id)
+        )
+        this.arregloUsuarios[indice].nombre=parametroCuerpo.nombre
+
+        return this.arregloUsuarios[indice]
+
+    }
+
+
+    //ELIMINAR USUARIO
+    @Delete(':id')
+    eliminar(
+        @Param() parametroRuta,
+
+    ){
+
+        const indice=this.arregloUsuarios.findIndex(
+            //(usuario)=> usuario.id===Number(parametrosRuta.id)
+            (usuario:{id:number, nombre:string })=> usuario.id=== Number(parametroRuta.id)
+        )
+        this.arregloUsuarios.splice(indice,1)
+        return this.arregloUsuarios[indice]
+
+    }
+
+
+
+
+
+
 
 
 }

@@ -191,7 +191,12 @@ export class CalculadoraController{
 
                     if(datosCliente.valor2==0){
                         console.log('No se puede dividir para cero')
-                        throw new BadRequestException("Los datos ingresados no son correctos")
+
+
+                        throw new BadRequestException("No se puede dividir para cero")
+
+
+
                     }else{
 
                         const respuesta=datosCliente.valor1/datosCliente.valor2
@@ -249,6 +254,7 @@ export class CalculadoraController{
 
     verificarUsuario(
         @Req() req
+
     ){
 
         const cookie=req.cookies
