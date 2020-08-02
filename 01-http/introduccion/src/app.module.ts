@@ -15,11 +15,11 @@ import {UsuarioEntity} from "./http/usuario/usuario.entity";
       UsuarioModule,
       TypeOrmModule.forRoot({
           name:'default',//nombre de conexion
-          type: 'mysql',//mysql, postgres
+          type: 'mysql',//mysql, postgres, etc
           host: 'localhost', //IP
           port: 3306, //puerto
           username: 'root', //usuario
-          password: 'adminWEB98', //pasword
+          password: 'adminWEB98', //password
           database: 'test', //base de datos
           entities: [ //TODAS LAS ENTIDADES
               UsuarioEntity
