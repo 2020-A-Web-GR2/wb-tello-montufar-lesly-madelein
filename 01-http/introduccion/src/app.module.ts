@@ -1,11 +1,15 @@
 import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import {HttpJuegoModule} from "./http/http-juego.module";
+import {HttpJuegoModule} from "./http/juego/http-juego.module";
 import {CalculadoraModule} from "./http/deber1/calculadora.module";
 import {UsuarioModule} from "./http/usuario/usuario.module";
 import {TypeOrmModule} from "@nestjs/typeorm";
 import {UsuarioEntity} from "./http/usuario/usuario.entity";
+import {MascotaEntity} from "./http/mascota/mascota.entity";
+import {VacunaEntity} from "./http/vacuna/vacuna.entity";
+import {MascotaModule} from "./http/mascota/mascota.module";
+import {VacunaModule} from "./http/vacuna/vacuna.module";
 
 @Module({
   imports: [
@@ -13,6 +17,9 @@ import {UsuarioEntity} from "./http/usuario/usuario.entity";
       HttpJuegoModule,
       CalculadoraModule,
       UsuarioModule,
+      MascotaModule,
+      VacunaModule,
+
       TypeOrmModule.forRoot({
           name:'default',//nombre de conexion
           type: 'mysql',//mysql, postgres, etc
@@ -22,7 +29,9 @@ import {UsuarioEntity} from "./http/usuario/usuario.entity";
           password: 'adminWEB98', //password
           database: 'test', //base de datos
           entities: [ //TODAS LAS ENTIDADES
-              UsuarioEntity
+              UsuarioEntity,
+              MascotaEntity,
+              VacunaEntity
           ],
           synchronize: true,// Actualiza el estado de la base de datos
           dropSchema:false //Eliminar los datos y el esquema de base de datos

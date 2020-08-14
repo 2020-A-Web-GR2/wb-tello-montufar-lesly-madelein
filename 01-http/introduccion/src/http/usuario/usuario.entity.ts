@@ -1,4 +1,6 @@
-import {Column, Entity, Index, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, Index, ManyToMany, OneToMany, PrimaryGeneratedColumn} from "typeorm";
+import {MascotaEntity} from "../mascota/mascota.entity";
+import {VacunaEntity} from "../vacuna/vacuna.entity";
 
 
 //INDICES DE BUSQUEDA
@@ -11,13 +13,13 @@ import {Column, Entity, Index, PrimaryGeneratedColumn} from "typeorm";
 
 //Creacion de indices compuestos
 
-@Index([
+/*@Index([
     'nombre',
     'apellido',
     'cedula'
 ],
 
-{unique:true})
+{unique:true})*/
 
 
 
@@ -81,8 +83,18 @@ export class UsuarioEntity{
     @Column({
         name:'fecha_hora_nacimiento',
         type: "datetime",
+        nullable:true,
     })
     fechaHoraNacimiento?:string
+
+
+    @OneToMany(
+        type => MascotaEntity, //que entidad relacionamos
+        mascota=> mascota.usuario
+    )
+    mascotas:MascotaEntity[];
+
+
 
 
 }

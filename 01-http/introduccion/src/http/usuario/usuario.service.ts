@@ -12,7 +12,31 @@ export class UsuarioService {
     ) { }
 
     crearUno(nuevoUsuario:UsuarioEntity){
-        return this.repositorio.save(nuevoUsuario)
+
+
+        return this.repositorio.save(nuevoUsuario) //promesa
     }
 
+    buscarTodos(){
+        return this.repositorio.find();
+    }
+
+    buscarUno(id: number){
+        return this.repositorio.findOne(id);
+
+    }
+
+    editarUno(usuario:UsuarioEntity){
+        return this.repositorio.save(usuario)
+    }
+
+    eliminarUno(id:number){
+        return this.repositorio.delete(id)
+    }
+
+    //usuario-- mascotas
+    //mascota--vacunas
+
+
 }
+

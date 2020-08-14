@@ -12,7 +12,7 @@ import {
     Query,
     Req, Res
 } from "@nestjs/common";
-import {MascotaCreateDto} from "./dto/mascota.create-dto";
+import {MascotaCreateDto} from "../dto/mascota.create-dto";
 import {validate, ValidationError} from "class-validator";
 
 
