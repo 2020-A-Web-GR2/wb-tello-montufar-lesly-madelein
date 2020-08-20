@@ -1,13 +1,28 @@
-import {IS_DATE, IsAlpha, IsDate, IsNotEmpty, IsNumber, IsOptional, IsPositive, MaxLength} from "class-validator";
+import {
+    IS_DATE,
+    IsAlpha,
+    IsDate, IsDateString,
+    IsNotEmpty,
+    IsNumber,
+    IsNumberString,
+    IsOptional,
+    IsPositive,
+    MaxLength
+} from "class-validator";
 
 
 
-export class UsuarioCreateDto{
-    @IsNotEmpty()
+export class UsuarioUpdateDto{
+    @IsOptional()
     @MaxLength(10)
     @MaxLength(60)
-    @IsAlpha()
+    @IsNumberString()
     cedula:string
+
+    @IsAlpha()
+    @MaxLength(60)
+    @IsOptional()
+    nombre?:string
 
     @IsAlpha()
     @MaxLength(60)
@@ -20,9 +35,11 @@ export class UsuarioCreateDto{
     @IsPositive()
     sueldo?:string
 
-    @IsDate()
+    @IsOptional()
+        //  @Matches('\d{4}(-)(0?[1-9]|1[1-2])\1(3[01]|[12][0-9]|0?[1-9])')
     fechaNacimiento?:string
 
-    @IsDate()
+    @IsDateString()
+    @IsOptional()
     fechaHoraNacimiento?:string
 }

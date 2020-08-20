@@ -50,7 +50,7 @@ export class UsuarioEntity{
         length:'60',
         nullable:true
     })
-    apellido:string
+    apellido?:string
 
 
     @Column({
