@@ -17,6 +17,7 @@ export class UsuarioService {
         return this.repositorio.save(nuevoUsuario) //promesa
     }
 
+
     buscarTodos(){
         return this.repositorio.find();
     }
