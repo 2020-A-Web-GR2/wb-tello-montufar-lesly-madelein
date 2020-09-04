@@ -7,7 +7,7 @@ import {
     InternalServerErrorException, NotFoundException,
     Param,
     Post,
-    Put, Res
+    Put, Query, Res
 } from "@nestjs/common";
 import {UsuarioService} from "./usuario.service";
 import {MascotaCreateDto} from "../dto/mascota.create-dto";
@@ -15,6 +15,7 @@ import {UsuarioCreateDto} from "./dto/usuario.create-dto";
 import {validate, ValidationError} from "class-validator";
 import {UsuarioUpdateDto} from "./dto/usuario.update-dto";
 import {MascotaService} from "../mascota/mascota.service";
+import {catchError} from "rxjs/operators";
 
 @Controller('usuario')
 
@@ -67,10 +68,6 @@ export class UsuarioController {
        @Body() params
 
     ) {
-
-        //version anterior
-
-
 
             let mensajePantalla
 
@@ -384,11 +381,78 @@ export class UsuarioController {
 
     @Get('vista/crear')
     crearUsuarioVista(
+        @Res() res,
+        @Query() parametrosConsulta
+    ){
+
+        return res.render(
+            'usuario/crear',
+            {
+                error: parametrosConsulta.error,
+                nombre: parametrosConsulta.nombre,
+                apellido: parametrosConsulta.apellido,
+                cedula: parametrosConsulta.cedula
+            }
+        )
+    }
+
+    @Post('crearDesdeVista')
+    async crearDesdeVista(
+        @Body() parametrosCuerpo,
         @Res() res
     ){
 
-        res.render('usuario/crear')
+        // Validar los datos con un rico DTO
+        let nombreApellidoConsulta;
+        let cedulaConsulta;
+        if (parametrosCuerpo.cedula && parametrosCuerpo.nombre && parametrosCuerpo.apellido) {
+            nombreApellidoConsulta = `&nombre=${parametrosCuerpo.nombre}&apellido=${parametrosCuerpo.apellido}`
+            if (parametrosCuerpo.cedula.length === 10) {
+                cedulaConsulta = `&cedula=${parametrosCuerpo.cedula}`
+            } else {
+                const mensajeError = 'Cedula incorrecta'
+                return res.redirect('/usuario/vista/crear?error=' + mensajeError + nombreApellidoConsulta)
+            }
+        } else {
+            nombreApellidoConsulta = `&nombre=${parametrosCuerpo.nombre}&apellido=${parametrosCuerpo.apellido}`
+            cedulaConsulta = `&cedula=${parametrosCuerpo.cedula}`
+            const mensajeError = 'Enviar cedula(10) nombre y apellido'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError+ nombreApellidoConsulta + cedulaConsulta )
+        }
+        let respuestaCreacionUsuario;
+        try {
+            respuestaCreacionUsuario = await this._usuarioService.crearUno(parametrosCuerpo);
+        } catch (error) {
+            console.error(error);
+            const mensajeError = 'Error creando usuario'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError + nombreApellidoConsulta + cedulaConsulta)
+        }
+        if (respuestaCreacionUsuario) {
+            return res.redirect('/usuario/vista/inicio');
+        } else {
+            const mensajeError = 'Error creando usuario'
+            return res.redirect('/usuario/vista/crear?error=' + mensajeError + nombreApellidoConsulta + cedulaConsulta);
+        }
     }
+
+    @Post('eliminarDesdeVista/:id')
+    async eliminarDesdeVista(
+        @Param() parametroRuta,
+        @Res() res
+
+    ){
+         try{
+            const id= Number(parametroRuta.id)
+             await this._usuarioService.eliminarUno(id)
+             return res.redirect('/usuario/vista/inicio')
+         }catch (e) {
+             console.log(e)
+             return res.redirect('/usuario/vista/inicio?error=Error eliminando usuario')
+
+          }
+    }
+
+
 
 
 }

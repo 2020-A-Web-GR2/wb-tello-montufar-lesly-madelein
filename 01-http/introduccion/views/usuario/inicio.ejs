@@ -1,21 +1,14 @@
 <%- include('../compartido/estilos-generales/estilos-generales-component')%>
 <h1>Inicio</h1>
 <%- include('../compartido/menu/menu-component')%>
+<!-- PRACTICA DE INYECCION CODIGO JS -->
+<!--<% const Lesly={nombre:"Lesly",apellido:"Tello", cedula:"1444"}%>-->
+<!--<% const numero=25%>-->
+<!--<% const mensaje="Hola"%>-->
+<!--<p><%=numero%></p>-->
+<!--<p><%=mensaje%></p>-->
+<!--<p><%=Lesly.nombre%>  <%=Lesly.apellido%> </p>-->
 
-<% const Lesly={nombre:"Lesly",apellido:"Tello", cedula:"1444"}%>
-<% const numero=25%>
-<% const mensaje="Hola"%>
-<p><%=numero%></p>
-<p><%=mensaje%></p>
-<p><%=Lesly.nombre%>  <%=Lesly.apellido%> </p>
-<% const arregloNumeros=[1,2,3,4,5]%>
-
-<!--Definir un arreglo de numeros-->
-<ul>
-    <%arregloNumeros.forEach((objeto)=>{ %>
-        <li><%= objeto%></li>
-   <% })%>
-</ul>
 
 <a href="/usuario/vista/crear">
     <button>Crear</button>
@@ -38,7 +31,11 @@
                 <td>
                     <button>Ver</button>
                     <button>Editar</button>
-                    <button>Eliminar</button>
+                    <form action="/usuario/eliminarDesdeVista/<%=objeto.id%>"
+                        method="post">
+                        <button>Eliminar</button>
+                    </form>
+
                 </td>
             </tr>
         <% })%>
@@ -46,5 +43,12 @@
 
 </table>
 
+<% const arregloNumeros=[1,2,3,4,5]%>
 
+<!--Definir un arreglo de numeros-->
+<ul>
+    <%arregloNumeros.forEach((objeto)=>{ %>
+        <li><%= objeto%></li>
+    <% })%>
+</ul>
 <%- include('../compartido/funcionalidad general/funcionalidad-general-component')%>
