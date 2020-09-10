@@ -13,7 +13,9 @@
 <a href="/usuario/vista/crear">
     <button>Crear</button>
 </a>
-
+<%if(typeof parametrosConsulta!= 'undefined'){%>
+<p> Mensaje:<%=parametrosConsulta.mensaje%></p>
+<%}%>
 <table>
     <tr>
         <th> Nombre</th>
@@ -30,7 +32,12 @@
                 <td><%=objeto.cedula %></td>
                 <td>
                     <button>Ver</button>
-                    <button>Editar</button>
+
+                    <a href="/usuario/vista/editar/<%=objeto.id%>">
+                        <button>Editar</button>
+                    </a>
+
+
                     <form action="/usuario/eliminarDesdeVista/<%=objeto.id%>"
                         method="post">
                         <button>Eliminar</button>
