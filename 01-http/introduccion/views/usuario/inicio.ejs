@@ -1,7 +1,110 @@
 <%- include('../compartido/estilos-generales/estilos-generales-component')%>
+<html>
+<head>
+    <link rel="stylesheet" href="http://localhost:3001/css/bootstrap.css">
+    <!-- CSS only -->
+
+    <style>
+        .rojo{
+            background-color: red;
+        }
+
+        .azul{
+            background-color: #005cbf;
+        }
+
+        .rosado{
+            background-color: pink;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Navbar</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>
+
 <h1>Inicio</h1>
+
+
 <%- include('../compartido/menu/menu-component')%>
 <!-- PRACTICA DE INYECCION CODIGO JS -->
+
+<!--<div class="row">
+    <div class="col-sm-4 rojo">
+        1
+    </div>
+
+    <div class="col-sm-4 azul">
+        2
+    </div>
+    <div class="col-sm-4 rojo">
+        3
+    </div>
+
+    <div class="col-sm-12 azul">
+        4
+        <div class="row">
+            <div class="col-sm-8 rosado">
+                Estoy dentro
+            </div>
+            <div class="col-sm-4 rojo">
+               Estoy dentro 2
+            </div>
+
+        </div>
+    </div>
+
+    <div class="col-sm-6 rosado">
+        5
+    </div>
+
+    <div class="col-sm-6 azul">
+        6
+    </div>
+
+    <div class="col-md-12 rosado">
+        Soy un medium
+    </div>
+</div>
+
+<div class="container">
+    <div>
+
+    </div>
+</div>-->
+
 <!--<% const Lesly={nombre:"Lesly",apellido:"Tello", cedula:"1444"}%>-->
 <!--<% const numero=25%>-->
 <!--<% const mensaje="Hola"%>-->
@@ -35,27 +138,27 @@
 
     </tr>
 
-        <%arregloUsuarios.forEach((objeto)=>{%>
-            <tr>
-            <td><%=objeto.nombre %></td>
-                <td><%=objeto.apellido %></td>
-                <td><%=objeto.cedula %></td>
-                <td>
-                    <button>Ver</button>
+    <%arregloUsuarios.forEach((objeto)=>{%>
+    <tr>
+        <td><%=objeto.nombre %></td>
+        <td><%=objeto.apellido %></td>
+        <td><%=objeto.cedula %></td>
+        <td>
+            <button>Ver</button>
 
-                    <a href="/usuario/vista/editar/<%=objeto.id%>">
-                        <button>Editar</button>
-                    </a>
+            <a href="/usuario/vista/editar/<%=objeto.id%>">
+                <button>Editar</button>
+            </a>
 
 
-                    <form action="/usuario/eliminarDesdeVista/<%=objeto.id%>"
-                        method="post">
-                        <button>Eliminar</button>
-                    </form>
+            <form action="/usuario/eliminarDesdeVista/<%=objeto.id%>"
+                  method="post">
+                <button>Eliminar</button>
+            </form>
 
-                </td>
-            </tr>
-        <% })%>
+        </td>
+    </tr>
+    <% })%>
 
 
 </table>
@@ -68,4 +171,12 @@
         <li><%= objeto%></li>
     <% })%>
 </ul>
+<!-- JS, Popper.js, and jQuery -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
 <%- include('../compartido/funcionalidad general/funcionalidad-general-component')%>
