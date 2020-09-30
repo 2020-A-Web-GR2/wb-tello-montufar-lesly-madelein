@@ -1,0 +1,104 @@
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/stylePrincipal.css">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+    <body>
+
+    <div class="container col-sm-4 border-left">
+        <a href="/zoo/logout">
+            <button class="btn" style="background-color: black"><i class="fas fa-sign-out-alt"></i>Log out</button>
+        </a>
+    </div>
+
+<div class="container">
+
+    <h1 class="text-center"><br><strong>BIENVENIDO</strong><br></h1>
+
+
+    <div class="row">
+        <div class="panel panel-info class">
+            <div class="panel-heading col-sm-12">
+                <div class="col-sm-10">
+                    <h3 class="panel-title text-center col-sm-3">Zoologico</h3>
+                    <form action="/zoo/principalConsulta" method="get">
+                    <label class="col-sm-2" for="busqueda">Busqueda:</label>
+                    <input type="text" class="col-sm-4" placeholder="Escriba su busqueda" name="busqueda" value="">
+                        <button class="btn-info col-sm-2" type="submit">Buscar</button>
+                    </form>
+
+                </div>
+
+                <div class="col-sm-2">
+                    <form action="/zoo/crear" method="get">
+                        <button class="btn-info " type="submit">Crear</button>
+                    </form>
+
+                </div>
+
+                <%if(resultado!=undefined){%>
+                    <div class="col-sm-12 text-center " style="background-color: dodgerblue">
+                        <p style="color:white"><%=resultado.res%></p>
+                    </div>
+
+                <%}%>
+
+
+            </div>
+            <table class="table">
+                <thead>
+
+                <tr >
+
+                    <th>Nombre</th>
+                    <th >Familia</th>
+                    <th>Clase</th>
+                    <th>Alimentación</th>
+                    <th>Peso</th>
+                    <th>Editar</th>
+                    <th>Eliminar</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <%listaAnimales.forEach((objeto)=>{%>
+                    <tr>
+                        <td><%=objeto.nombre%></td>
+                        <td><%=objeto.familia%></td>
+                        <td><%=objeto.clase%></td>
+                        <td><%=objeto.alimentacion%></td>
+                        <td><%=objeto.peso%></td>
+                        <td>
+                            <a href="/zoo/editar/<%=objeto.id%>">
+                            <button class="btn-info"><i class="fas fa-pencil-alt"></i></button>
+                            </a>
+                        </td>
+                        <td>
+                            <a href="/zoo/eliminar/<%=objeto.id%>">
+                            <button class="btn-danger"><i class="fa fa-trash">
+                                    
+                                </i></button>
+                            </a>
+                        </td>
+
+                    </tr>
+                <%})%>
+
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+</body>
+
+</html>

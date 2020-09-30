@@ -1,0 +1,7 @@
+html,body{
+    background-image: url('https://www.bluper.es/bluper/sites/default/files/noticias/2020-03-06/el_rey_leon.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100%;
+    font-family: 'Numans', sans-serif;
+}

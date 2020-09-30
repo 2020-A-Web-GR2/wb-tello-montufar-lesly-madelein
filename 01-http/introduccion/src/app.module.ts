@@ -10,6 +10,14 @@ import {MascotaEntity} from "./http/mascota/mascota.entity";
 import {VacunaEntity} from "./http/vacuna/vacuna.entity";
 import {MascotaModule} from "./http/mascota/mascota.module";
 import {VacunaModule} from "./http/vacuna/vacuna.module";
+import {ZoologicoEntity} from "./http/examenFinal/zoologico.entity";
+import {ModuloZoologico} from "./http/examenFinal/zoologico.module";
+import {ProductoModule} from "./producto/producto.module";
+import {CategoriaModule} from "./categoria/categoria.module";
+import {ImagenProductoModule} from "./imagen-producto/imagen-producto.module";
+import {CategoriaEntity} from "./categoria/category.entity";
+import {ProductoEntity} from "./producto/producto.entity";
+import {ImagenProductoEntity} from "./imagen-producto/imagen-producto.entity";
 
 @Module({
   imports: [
@@ -19,6 +27,10 @@ import {VacunaModule} from "./http/vacuna/vacuna.module";
       UsuarioModule,
       MascotaModule,
       VacunaModule,
+      ModuloZoologico,
+      ProductoModule,
+      CategoriaModule,
+      ImagenProductoModule,
 
       TypeOrmModule.forRoot({
           name:'default',//nombre de conexion
@@ -31,7 +43,11 @@ import {VacunaModule} from "./http/vacuna/vacuna.module";
           entities: [ //TODAS LAS ENTIDADES
               UsuarioEntity,
               MascotaEntity,
-              VacunaEntity
+              VacunaEntity,
+              ZoologicoEntity,
+              CategoriaEntity,
+              ProductoEntity,
+              ImagenProductoEntity
           ],
           synchronize: true,// Actualiza el estado de la base de datos
           dropSchema:false //Eliminar los datos y el esquema de base de datos

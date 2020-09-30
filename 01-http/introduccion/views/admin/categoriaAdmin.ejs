@@ -1,0 +1,47 @@
+
+
+
+<div class="container mt-2">
+    <H1>Categorias</H1>
+
+    <div >
+        <form action="/categoria/crearDesdeVista" method="get">
+            <button>
+                Crear
+            </button>
+        </form>
+
+    </div>
+    <div class="row">
+        <!--un elemento-->
+        <%categorias.forEach((categoria)=>{%>
+        <div class="col-md-3 col-sm-6">
+
+            <div class="card card-block">
+                <div class="col-sm-12 card-text">
+                    <a href="/categoria/editar/<%=categoria.id%>">
+
+                        <button >Editar</button>
+                    </a>
+
+                    <a href="/categoria/eliminar/<%=categoria.id%>">
+                        <button>Eliminar</button>
+                    </a>
+
+                </div>
+
+                <div class="col-sm-12 card-text">
+                            <p>ID:<%=categoria.id%></p>
+                    <h3 class="card-title mt-3 mb-3">Nombre: <%=categoria.nombre%></h3>
+                    </div>
+
+
+            </div>
+        </div>
+        <%})%>
+    </div>
+
+
+
+
+</div>

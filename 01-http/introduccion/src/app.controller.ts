@@ -1,4 +1,4 @@
-import {Body, Controller, Get, Post, Req, Res, Session} from '@nestjs/common';
+import {Body, Controller, Get, Post, Query, Req, Res, Session} from '@nestjs/common';
 import { AppService } from './app.service';
 
 @Controller()
@@ -14,6 +14,8 @@ export class AppController {
   login(@Res() res){
     return res.render('login/login')
   }
+
+
 
 
 

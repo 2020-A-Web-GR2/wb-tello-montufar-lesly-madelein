@@ -1,0 +1,91 @@
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="/css/stylePrincipal.css">
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+<body>
+
+<%const existeAnimal=typeof animalEncontrado!='undefined'%>
+
+<% let existeNombre=typeof nombre != 'undefined' %>
+<% let existeFamilia=typeof familia != 'undefined' %>
+<% let existeClase=typeof clase != 'undefined'%>
+<% let existeAlimentacion=typeof alimentacion != 'undefined'%>
+<% let existePeso=typeof peso != 'undefined'%>
+
+<%if(existeAnimal){%>
+
+
+<% existeNombre=true%>
+<% existeFamilia=true%>
+<% existeClase=true%>
+<% existeAlimentacion=true%>
+<% existePeso=true%>
+<% nombre=animalEncontrado.nombre%>
+<% familia=animalEncontrado.familia%>
+<% clase=animalEncontrado.clase%>
+<% alimentacion=animalEncontrado.alimentacion%>
+<% peso=animalEncontrado.peso%>
+
+<%}else{%>
+<% nombre=""%>
+<% familia=""%>
+<% clase=""%>
+<% alimentacion=""%>
+<% peso=""%>
+
+<%}%>
+
+<div class="panel panel-primary" style="margin:20px;">
+    <div class="panel-heading">
+        <h3 class="panel-title">ZOOLOGICO</h3>
+    </div>
+    <div class="panel-body">
+        <form action="<%= existeAnimal? '/zoo/editarDesdeVista/'+animalEncontrado.id:'/zoo/crear'%>" method="post">
+            <div class="col-md-12 col-sm-12">
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="nombre">Nombre*	</label>
+                    <input type="text" class="form-control input-sm" name="nombre" placeholder="" required
+                    maxlength="100" value="<%= existeNombre?nombre:''  %>">
+                </div>
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="familia">Familia*</label>
+                    <input type="text" class="form-control input-sm" name="familia" placeholder="" required
+                           maxlength="100" value="<%= existeFamilia ? familia:'' %>">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="clase">Clase*</label>
+                    <input type="text" class="form-control input-sm" name="clase" placeholder="" required
+                           maxlength="100"  value="<%= existeClase ? clase:'' %>">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="alimentacion">Alimentacion</label>
+                    <input class="form-control input-sm" name="alimentacion" rows="3"
+                           value="<%= existeAlimentacion ? alimentacion:'' %>">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="peso">Peso</label>
+                    <input type="number" step="any" class="form-control" name="peso" placeholder="" value="<%= existePeso ? peso : '' %>">
+                </div>
+
+
+            <div class="col-md-12 col-sm-12">
+                <div class="col-md-3 col-sm-3" >
+                    <input type="submit" class="btn btn-primary" value="Guardar"/>
+                </div>
+            </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+
+</head>
+<body>
+
+<%const existeCategoria=typeof categoriaEncontrada!='undefined'%>
+
+
+<% let existeNombre=typeof nombre != 'undefined' %>
+
+
+<%if(existeCategoria){%>
+
+
+    <% existeNombre=true%>
+    <% nombre= categoriaEncontrada.nombre%>
+
+
+<%}else{%>
+    <% nombre=""%>
+
+<%}%>
+
+<div class="panel panel-primary" style="margin:20px;">
+    <div class="panel-heading">
+        <h3 class="panel-title align-items-center">BOLIVAR, COLORES Y SABORES</h3>
+    </div>
+    <div class="panel-body">
+        <form action="<%= existeCategoria? '/categoria/'+categoriaEncontrada.id:'/categoria/crear'%>" method="post">
+            <div class="col-md-12 col-sm-12">
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="nombre">Nombre*	</label>
+                    <input type="text" class="form-control input-sm" name="nombre" placeholder="" required
+                           maxlength="100" value="<%= existeNombre?nombre:''  %>">
+                </div>
+                <div class="col-md-12 col-sm-12">
+                    <div class="col-md-3 col-sm-3" >
+                        <input type="submit" class="btn btn-primary" value="Guardar"/>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+
+
+<section class="checkout py-lg-4 py-md-3 py-sm-3 py-3">
+    <div class="container py-lg-5 py-md-4 py-sm-4 py-3">
+        <div class="shop_inner_inf">
+            <div class="privacy about">
+                <h3 class="text-center">PEDIDOS</h3>
+                <div class="checkout-right">
+
+                    <table class="timetable_sub">
+                        <thead>
+                        <tr>
+                            <th>Nro.Pedido</th>
+                            <th>Fecha</th>
+                            <th>Precio</th>
+                            <th>Estado</th>
+                            <th>Nombre del cliente</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <%pedidos.forEach((pedido)=>{%>
+                            <tr class="rem1">
+                                <td class="invert"><%=pedido.id%></td>
+                                <td class="invert"><%=pedido.fechaPedido%></td>
+                                <td class="invert"><%=pedido.total%></td>
+                                <td class="invert"><%=pedido.estado%></td>
+                                <td class="invert"><%=pedido.usuario[0].nombre%></td>
+                            </tr>
+                        <%})%>
+
+
+                        <tr class="rem2">
+                            <td class="invert">1</td>
+                            <td class="invert">02/07/2020</td>
+                            <td class="invert">$52.60</td>
+                            <td class="invert">Entregado</td>
+                            <td class="invert">
+                                <div class="rem">
+                                    <button>Ver pedido</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        <tr class="rem3">
+                            <td class="invert">1</td>
+                            <td class="invert">02/07/2020</td>
+                            <td class="invert">$52.60</td>
+                            <td class="invert">Entregado</td>
+                            <td class="invert">
+                                <div class="rem">
+                                    <button>Ver pedido</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

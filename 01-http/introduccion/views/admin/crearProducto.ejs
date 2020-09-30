@@ -1,0 +1,141 @@
+<html>
+<head>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+
+    <!--Fontawesome CDN-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+</head>
+<body>
+
+<%const existeProducto=typeof productoEncontrado!='undefined'%>
+
+<% let existeNombre=typeof nombre != 'undefined' %>
+<% let existeCategoria=typeof categoria != 'undefined' %>
+<% let existeDescripcion=typeof descripcion != 'undefined'%>
+<% let existeCantidad=typeof cantidad != 'undefined'%>
+<% let existePrecio=typeof precio != 'undefined'%>
+<% let existeImagenes=typeof imagenes != 'undefined'%>
+<% let existeCodigo=typeof codigo != 'undefined'%>
+<% let existeFechaInicio=typeof fechaInicio != 'undefined'%>
+<% let existeFechaFin=typeof fechaFin != 'undefined'%>
+
+<%if(existeProducto){%>
+
+
+    <% existeNombre=true%>
+    <% existeCategoria=true%>
+    <% existeDescripcion=true%>
+    <% existeCantidad=true%>
+    <% existePrecio=true%>
+    <% existeImagenes=true%>
+    <% existeCodigo=true%>
+    <% existeFechaFin=true%>
+    <% existeFechaInicio=true%>
+    <% nombre=productoEncontrado.nombre%>
+    <% descripcion=productoEncontrado.descripcion%>
+    <% cantidad=productoEncontrado.cantidad%>
+    <% precio=productoEncontrado.precio%>
+    <% imagenes=productoEncontrado.imagenes[0].url%>
+    <% codigo=productoEncontrado.codigo%>
+    <% categoria=productoEncontrado.categoria%>
+    <% fechaInicio=productoEncontrado.fechaInicio%>
+    <% fechaFin=productoEncontrado.fechaInicio%>
+
+<%}else{%>
+    <% nombre=""%>
+    <% categoria=""%>
+    <% descripcion=""%>
+    <% cantidad=""%>
+    <% precio=""%>
+    <% imagenes=""%>
+    <% codigo=""%>
+
+<%}%>
+
+<div class="panel panel-primary" style="margin:20px;">
+    <div class="panel-heading">
+        <h3 class="panel-title align-items-center">BOLIVAR, COLORES Y SABORES</h3>
+    </div>
+    <div class="panel-body">
+        <form action="<%= existeProducto? '/productos/'+productoEncontrado.id:'/productos/crear'%>" method="post">
+            <div class="col-md-12 col-sm-12">
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="nombre">Nombre*	</label>
+                    <input type="text" class="form-control input-sm" name="nombre" placeholder="" required
+                           maxlength="100" value="<%= existeNombre?nombre:''  %>">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="descripcion">Descripcion</label>
+                    <textarea class="form-control input-sm" name="descripcion" rows="3"
+                              value="<%= existeDescripcion ? descripcion:'' %>"> <%= existeDescripcion ? descripcion:'' %></textarea>
+                </div>
+
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="codigo">Codigo</label>
+                    <input type="text" class="form-control input-sm" name="codigo" placeholder=""
+                           maxlength="100"  value="<%= existeCodigo ? codigo:'' %>">
+                </div>
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="categoria">Categoria:</label>
+
+                        <select name="categoria" >
+                            <%categorias.forEach((categoria)=>{%>
+                            <option value="<%categorias.id%>"><%=categoria.nombre%></option>
+
+                                <% })%>
+                            <option value="null">Ninguno</option>
+                        </select>
+
+
+
+
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="precio">Precio*</label>
+                    <input type="text" class="form-control input-sm" name="precio" placeholder="" required
+                           maxlength="100"  value="<%= existePrecio ? precio:'' %>">
+                </div>
+
+
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="cantidad">Cantidad</label>
+                    <input type="number" step="any" class="form-control" name="cantidad" placeholder="" value="<%= existeCantidad ? cantidad : '' %>">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="imagenes">Imagenes</label>
+                    <input type="text" step="any" class="form-control" name="imagenes" placeholder="" value="<%= existeImagenes ? imagenes : '' %>">
+                </div>
+
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="fechaInicio">Fecha Inicio</label>
+                    <input type="date" step="any" class="form-control" name="fechaInicio" placeholder="" value="<%= existeFechaInicio? fechaInicio : '' %>">
+                </div>
+
+                <div class="form-group col-md-6 col-sm-6">
+                    <label for="fechaFin">Fecha Fin</label>
+                    <input type="date" step="any" class="form-control" name="fechaFin" placeholder="" value="<%= existeFechaFin ? fechaFin : '' %>">
+                </div>
+
+
+                <div class="col-md-12 col-sm-12">
+                    <div class="col-md-3 col-sm-3" >
+                        <input type="submit" class="btn btn-primary" value="Guardar"/>
+                    </div>
+                </div>
+
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
